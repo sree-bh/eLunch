@@ -1,0 +1,70 @@
+html {
+    font-family: sans-serif;
+}
+
+div {
+    position: relative;
+}
+
+.f10 {
+    font-size: 11px;
+}
+
+.highlight {
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-flow: row;
+}
+
+.time-controls {
+    width: 100px;
+    border-right: 1px solid black;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.scheduler {
+    display: flex;
+    flex-flow: row;
+    flex: 1;
+    height: 720px;
+    background: #eee;
+    padding: 0 5px;
+}
+
+.event {
+    flex: 1;
+    border: 1px solid black;
+    border-left-color: darkblue;
+    border-left-width: 5px;
+    background: white;
+    padding-left: 10px;
+    margin: 1px;
+}
+
+.scheduled {
+    border-left-color: green;
+}
+
+.open {
+    border-left-color: black;
+}
+
+.time-controls > div {
+    height: 30px;
+}
+.time-controls > div:last-child {
+    height: 0;
+    position: absolute;
+    right: 5px;
+    bottom: 7px;
+}
+
+.unit {
+    padding-left: 5px;
+}
