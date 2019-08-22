@@ -3,9 +3,7 @@ matchLunchEvent = (function (win, $) {
     const START_TIME = 9;
     const END_TIME = 9;
     const DURATION = 12;
-    const HALF_HOUR = 30;
-    const space = 625;
-    const totalDur = 720;
+    const $scheduler = $('.scheduler');
 
     function init() {
         for (let count = 0, startTime = 0; count <= DURATION; count++, startTime++) {
@@ -22,11 +20,11 @@ matchLunchEvent = (function (win, $) {
                 .append(
                     $('<div>')
                         .append($('<span>').addClass('highlight').text(time + ':00'))
-                        .append($('<span>').addClass('unit f10').text(unit))
+                        .append($('<span>').addClass('unit f11').text(unit))
                 );
 
             if (!(unit === AM_PM[1] && time === END_TIME)) {
-                $timeControls.append($('<div>').addClass('f10').text(time + ':30'));
+                $timeControls.append($('<div>').addClass('half-hour f11').text(time + ':30'));
             }
 
         }
@@ -47,9 +45,6 @@ matchLunchEvent = (function (win, $) {
     EmployeeEvent.prototype.setIsSelf = function (isSelf) {
         this.isSelf = isSelf;
     };
-    EmployeeEvent.prototype.setIsEqualDuration = function (isEqualDuration) {
-        this.isEqualDuration = isEqualDuration;
-    };
     EmployeeEvent.prototype.setOverlapDuration = function (overlapDuration) {
         this.overlapDuration = overlapDuration;
     };
@@ -57,19 +52,24 @@ matchLunchEvent = (function (win, $) {
     init();
 
     function drawEvents(events) {
-        $('.event').remove();
+        let template = [];
         events.forEach(function (item) {
-            $('.scheduler')
-                .append(
-                    $('<div>')
-                        .addClass('event')
-                        .addClass(item.isOverlapped ? 'scheduled' : item.isSelf ? 'open' : '')
-                        .css({
-                            top: `${item.start}px`,
-                            height: `${item.duration}px`
-                        })
-                        .text(item.name));
+            template.push(
+                $('<div>')
+                    .html(
+                        $('<div>')
+                            .addClass('event highlight')
+                            .addClass(item.isOverlapped ? 'scheduled' : item.isSelf ? 'open' : '')
+                            .css({
+                                top: `${item.start}px`,
+                                height: `${item.duration}px`
+                            })
+                            .text(item.name))
+                    .html()
+            );
         });
+
+        $scheduler.html(template.join(''));
     }
 
 
@@ -110,20 +110,15 @@ matchLunchEvent = (function (win, $) {
             const matchedCount = matched.length;
 
             if (matchedCount > 0) {
-                self.isOverlapped = true;
+                self.setIsOverlapped(true);
                 const matchIndex = Math.floor((Math.random() * matchedCount) + 1);
-                matched[matchIndex - 1].isOverlapped = true;
+                matched[matchIndex - 1].setIsOverlapped(true);
             }
 
             drawEvents([self, ...others]);
         }
     }
 })(window, jQuery);
-// matchLunchEvent([]);
-// matchLunchEvent([{start: 225, end: 285}, {
-//     start: 300,
-//     end: 360
-// }, {start: 180, end: 240}]);
 matchLunchEvent ([{start: 225, end: 285},{start: 210,
     end: 270},{start: 180, end: 240},{start: 240, end:
         300},{start: 300, end: 360},{start: 270, end: 330}]);

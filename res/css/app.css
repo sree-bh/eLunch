@@ -4,9 +4,10 @@ html {
 
 div {
     position: relative;
+    box-sizing: border-box;
 }
 
-.f10 {
+.f11 {
     font-size: 11px;
 }
 
@@ -15,22 +16,47 @@ div {
 }
 
 .container {
+    width: 620px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     flex-flow: row;
+    margin: auto;
 }
 
 .time-controls {
     width: 100px;
-    border-right: 1px solid black;
+    border-right: 1px solid #ccc;
     text-align: right;
     padding-right: 5px;
 }
 
+.time-controls > div {
+    height: 30px;
+    top: -15px;
+    padding-top: 7px;
+}
+
+.time-controls > div:last-child {
+    height: 0;
+    position: absolute;
+    right: 5px;
+    top: unset;
+    bottom: 10px;
+}
+
+.time-controls > div.half-hour {
+    padding-top: 10px;
+}
+
+.unit {
+    padding-left: 5px;
+}
+
 .scheduler {
     display: flex;
-    flex-flow: row;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
     flex: 1;
     height: 720px;
     background: #eee;
@@ -38,33 +64,37 @@ div {
 }
 
 .event {
+    position: relative;
     flex: 1;
-    border: 1px solid black;
-    border-left-color: darkblue;
-    border-left-width: 5px;
+    border: 1px solid #ccc;
+    color: darkblue;
     background: white;
-    padding-left: 10px;
-    margin: 1px;
+    padding-left: 20px;
+    left: 0;
+}
+
+.event:before {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 5px;
+    background-color: darkblue;
 }
 
 .scheduled {
-    border-left-color: green;
+    color: green;
+}
+
+.event.scheduled:before {
+    background-color: green;
 }
 
 .open {
-    border-left-color: black;
+    color: black;
 }
 
-.time-controls > div {
-    height: 30px;
-}
-.time-controls > div:last-child {
-    height: 0;
-    position: absolute;
-    right: 5px;
-    bottom: 7px;
-}
-
-.unit {
-    padding-left: 5px;
+.event.open:before {
+    background-color: black;
 }
