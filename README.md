@@ -1,7 +1,7 @@
 # eLunch
 
 Approach:
-- Generate the list of events with information such is "is self", "is overlap > 30" and "duration of lunch"
+- Generate the list of events with information such as "is self", "is overlap > 30" and "duration of lunch"
 - Find out the events with maximum overlap duration
 - If more than 1 event has same "maximum overlap duration", set "isOverlapped" property true for that event with earlier start time and set "isOverlapped" property true for "self" event
 - If more than 1 event has same "maximum overlap duration" and same "start time", set "isOverlapped" property true for a random event out of that and set "isOverlapped" property true for "self" event
